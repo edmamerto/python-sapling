@@ -4,11 +4,17 @@ version = "0.1.0"
 description = ""
 authors = ["edmamerto"]
 readme = "README.md"
-packages = [{include = "pyhton_sapling"}]
+packages = [{include = "src"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
 
+[tool.poetry.scripts]
+test = "run_tests:main"
+main = "main:main"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.2"
 
 [build-system]
 requires = ["poetry-core"]
