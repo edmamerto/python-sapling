@@ -15,6 +15,51 @@ main = "main:main"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.0.2"
+pre-commit = "^3.6.2"
+flake8 = "^7.0.0"
+black = "^24.2.0"
+isort = "^5.13.2"
+mypy = "^1.8.0"
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+
+[tool.isort]
+profile = "black"
+src_paths = ["src", "tests"]
+
+[tool.flake8]
+max-line-length = 88
+exclude = [
+    ".git",
+    "venv",
+    "build",
+    "dist",
+    ".mypy_cache",
+    ".tox",
+    "_build",
+    "buck-out",
+]
+ignore = ["E203", "W503"]
+
+[tool.mypy]
+files = ["src", "tests"]
+ignore_missing_imports = true
 
 [build-system]
 requires = ["poetry-core"]
