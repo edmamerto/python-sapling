@@ -1,8 +1,8 @@
-from src.hello import say_hello
+from src.hello import greet_user
 
 
-def main() -> None:  # This indicates that 'main' does not return any value.
-    print(say_hello())
+def main() -> None:
+    print(greet_user())
 
 
 if __name__ == "__main__":
