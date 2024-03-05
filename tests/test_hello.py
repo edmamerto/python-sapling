@@ -1,5 +1,5 @@
-from src.hello import say_hello
+from src.hello import greet_user
 
 
-def test_say_hello() -> None:
-    assert say_hello() == "Hello, World!"
+def test_greet_user() -> None:
+    assert greet_user() == "Hello, John Doe!"
