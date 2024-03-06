@@ -13,8 +13,8 @@ structlog = "^24.1.0"
 pytest-mock = "^3.12.0"
 
 [tool.poetry.scripts]
-test = "run_tests:main"
 main = "main:main"
+test = "scripts.run_tests:main"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.0.2"
