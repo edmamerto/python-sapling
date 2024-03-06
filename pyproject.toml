@@ -10,6 +10,7 @@ packages = [{include = "src"}]
 python = "^3.11"
 pydantic = {extras = ["email"], version = "^2.6.3"}
 structlog = "^24.1.0"
+pytest-mock = "^3.12.0"
 
 [tool.poetry.scripts]
 test = "run_tests:main"

@@ -4,6 +4,7 @@ import structlog
 
 
 def configure_logging():
+
     logging.basicConfig(level=logging.DEBUG)
 
     structlog.configure(
