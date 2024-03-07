@@ -1,22 +1,15 @@
-# Use Python 3.11 base image
-FROM python:3.11-slim
+# Stage 1: Build dependencies and run tests
+FROM python:3.11-slim AS builder
 
 # Set environment variables
-
-# This environment variable instructs Python not to write bytecode files (.pyc) to disk.
-# Bytecode files are typically used to speed up subsequent imports of the same module,
-# but in containerized environments or when filesystems are considered ephemeral,
-# writing bytecode files can be unnecessary and may cause issues.
 ENV PYTHONDONTWRITEBYTECODE 1
-
-# This environment variable ensures that Python's standard output (stdout) and standard error (stderr)
-# streams are unbuffered, meaning that the output is immediately flushed to the output stream.
-# In containerized environments, buffering can cause delays in output being displayed or logged,
-# so setting this variable to a non-empty value (typically '1') helps ensure prompt and correct output behavior.
 ENV PYTHONUNBUFFERED 1
 
 # Set working directory in the container
 WORKDIR /app
+
+# Create a non-privileged user
+RUN adduser --disabled-password --gecos '' appuser
 
 # Copy poetry.lock and pyproject.toml files
 COPY poetry.lock pyproject.toml /app/
@@ -32,6 +25,25 @@ COPY . /app/
 
 # Run unit tests
 RUN poetry run test
+
+# Stage 2: Run the application
+FROM python:3.11-slim
+
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# Set working directory in the container
+WORKDIR /app
+
+# Copy installed dependencies from the previous stage
+COPY --from=builder /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
+
+# Copy the application code
+COPY --from=builder --chown=appuser:appuser /app /app
+
+# Change to non-privileged user
+USER appuser
 
 # Command to run the application
 ENTRYPOINT ["poetry", "run", "python", "main.py"]
