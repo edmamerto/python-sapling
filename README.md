@@ -19,6 +19,15 @@ I've adopted some of the tools I liked and used them in my personal projects, wh
 | 📝         | [Structlog](https://www.structlog.org/en/stable/)  | Structured Logging       | Structlog makes it simple for your application's logs to be understood by log management tools when your apps go to production                                            |
 | 🧪         | [Mypy](https://mypy.readthedocs.io/en/stable/)       | Type Checker             | Never forget to add type hints with this tool. Compared to the type checkers from big companies like MAANG, I found this one simple to use.                               |
 | 🐳         | [Docker](https://www.docker.com/)     | Containerizer            | While poetry introduces an isolation layer, containers simplifies the transfer of your application to various servers.                                                        |
+| ✅ | [Pytest](https://docs.pytest.org/en/8.0.x/) | Unit testing | Seems to be the de facto choice for writing tests |
+
+# Pre-requisites
+
+Install **poetry**
+```
+$ pip instll poetry
+```
+Optionally, You need to have **docker** installed
 
 # Setup
 Install dependencies
@@ -52,10 +61,9 @@ $ docker run python-sapling
 # Seed
 This project was initialized with `poetry`
 ```bash
-$ pip install poetry
 $ poetry new my_project_name
 ```
 > This is informational and not part of the setup procedure
 
 ## License
-MIT
+**MIT**, or whatever. Feel free to 🍴 it and have fun!
