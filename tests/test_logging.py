@@ -1,35 +1,30 @@
+import json
 import logging
-from unittest.mock import MagicMock
 
 import pytest
-import structlog
 
-from src.log import configure_logging, get_logger
+from src.config import initialize_config
+from src.log import get_logger
 
 
 @pytest.fixture(autouse=True)
-def configure_logging_mock(mocker):
-    mocker.patch("logging.basicConfig")
-    mocker.patch("structlog.configure")
+def initialize_configuration():
+    initialize_config()
 
 
-def test_configure_logging():
-    configure_logging()
+def test_get_logger(caplog):
+    with caplog.at_level(logging.DEBUG):
+        # Call get_logger to get a logger instance
+        logger = get_logger()
 
-    # Ensure logging.basicConfig is called with the correct arguments
-    logging.basicConfig.assert_called_once_with(level=logging.DEBUG)
+        # Log a test message
+        logger.info("Test message")
 
-    # Ensure structlog.configure is called
-    structlog.configure.assert_called_once()
+    # Assert if "Test message" is in captured logs
+    assert "Test message" in caplog.text
 
+    log = json.loads(caplog.records[-1].message)
 
-def test_get_logger(mocker):
-    # Mock the structlog.get_logger function
-    logger_mock = MagicMock()
-    mocker.patch("structlog.get_logger", return_value=logger_mock)
-
-    # Call the get_logger function
-    get_logger("test_logger")
-
-    # Ensure structlog.get_logger is called with the correct arguments
-    structlog.get_logger.assert_called_once_with("test_logger")
+    # Optionally, if you need to check the log-level
+    assert log["event"] == "Test message"
+    assert log["level"].upper() == "INFO"
