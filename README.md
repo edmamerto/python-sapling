@@ -20,6 +20,7 @@ I've adopted some of the tools I liked and used them in my personal projects, wh
 | 🧪         | [Mypy](https://mypy.readthedocs.io/en/stable/)       | Type Checker             | Never forget to add type hints with this tool. Compared to the type checkers from big companies like MAANG, I found this one simple to use.                               |
 | 🐳         | [Docker](https://www.docker.com/)     | Containerizer            | While poetry introduces an isolation layer, containers simplifies the transfer of your application to various servers.                                                        |
 | ✅ | [Pytest](https://docs.pytest.org/en/8.0.x/) | Unit testing | Seems to be the de facto choice for writing tests |
+| 💯 | [Pytest-Cov](https://pypi.org/project/pytest-cov/) | Code Coverage | if you use pytest then you should use `pytest-cov` |
 
 # Pre-requisites
 
