@@ -23,3 +23,12 @@ repos:
     rev: v0.910-1
     hooks:
     - id: mypy
+  - repo: local
+    hooks:
+      - id: pytest-coverage
+        name: Pytest with Coverage
+        # term-missing generates a coverage report in the terminal, listing which lines of code were not covered by tests
+        entry: pytest --cov=. --cov-report=term-missing --cov-fail-under=80
+        language: system
+        always_run: true
+        pass_filenames: false
